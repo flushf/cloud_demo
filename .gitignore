@@ -1,5 +1,5 @@
 target/
-/.idea/libraries
+.idea/libraries
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
