@@ -11,4 +11,8 @@ public interface HelloService {
     @RequestMapping(value = "/service/test", method = RequestMethod.GET)
     @ResponseBody
     String helloFeign(@RequestParam("msg") String msg);
+
+    @RequestMapping("/service/{msg}")
+    String hello(@RequestParam("msg") String msg);
+
 }

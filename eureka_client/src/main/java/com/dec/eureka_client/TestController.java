@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class TestController {
     @Autowired
     private DiscoveryClient client;
 
+    @Autowired
+    RedisTemplate redisTemplate;
+
     @RequestMapping("/hello")
     public String test(@RequestBody User user) {
         logger.info("phone:" + user.getPhone() + ",name:" + user.getUserName());
@@ -28,7 +32,7 @@ public class TestController {
         return "hello world";
     }
 
-    @RequestMapping(value = "/test",method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String testFei(@RequestParam("msg") String msg) {
         return "test" + msg;
     }
@@ -46,5 +50,13 @@ public class TestController {
     @RequestMapping(value = "/all/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
     public Object findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         return userService.findAllUser(pageNum, pageSize);
+    }
+
+    @RequestMapping("/testRedis")
+    @ResponseBody
+    public String testRedis() {
+        redisTemplate.opsForValue().set("key", "value");
+        Object key = redisTemplate.opsForValue().get("key");
+        return key.toString();
     }
 }
