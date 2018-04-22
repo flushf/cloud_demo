@@ -14,21 +14,24 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/service")
-public class TestController {
+public class TestClientController {
     private final Logger logger = Logger.getLogger(getClass());
     @Autowired
     private DiscoveryClient client;
-
+    @Autowired
+    private UserService userService;
     @Autowired
     RedisTemplate redisTemplate;
 
-    @RequestMapping("/hello")
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
     public String test(@RequestBody User user) {
         logger.info("phone:" + user.getPhone() + ",name:" + user.getUserName());
         List<ServiceInstance> customer = client.getInstances("customer");
         for (ServiceInstance serviceInstance : customer) {
             logger.info(serviceInstance.getHost() + serviceInstance.getPort());
         }
+        System.out.println(user.getUserId());
+        userService.addUser(user);
         return "hello world";
     }
 
@@ -36,9 +39,6 @@ public class TestController {
     public String testFei(@RequestParam("msg") String msg) {
         return "test" + msg;
     }
-
-    @Autowired
-    private UserService userService;
 
     @ResponseBody
     @RequestMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
