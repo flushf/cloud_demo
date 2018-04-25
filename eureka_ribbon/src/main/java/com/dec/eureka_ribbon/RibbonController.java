@@ -45,4 +45,9 @@ public class RibbonController {
         return o;
     }
 
+    @RequestMapping("sayhello")
+    public String sayHi() {
+        return "say hi";
+    }
+
 }

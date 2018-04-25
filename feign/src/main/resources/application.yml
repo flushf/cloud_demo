@@ -6,7 +6,8 @@ eureka:
     service-url:
       defaultZone: http://localhost:1111/eureka
 server:
-  port: 8092
+  port: 9090
 feign:
   hystrix:
+#  开启断路器功能
     enabled: true

@@ -9,6 +9,7 @@
     <modules>
         <module>entity_basis</module>
         <module>test</module>
+        <module>zuul</module>
     </modules>
     <packaging>pom</packaging>
 
