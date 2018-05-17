@@ -30,6 +30,7 @@ public class RibbonController {
 
     @RequestMapping("/addUser")
     public String addUser(String name, String phone) {
+
         User user = new User();
         user.setUserName(name);
         user.setPassword("huiahf");
